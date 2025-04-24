@@ -1,50 +1,39 @@
-import { Image, ScrollView, View, StyleSheet, Text } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { TextInput } from "react-native-gesture-handler";
+import React, { useState } from "react";
+import { useRouter } from "expo-router";
 
-export default function Home() {
-    const data = [
-        {
-            name: "Firda Febiola",
-            age: 21,
-            city: "Ngajum",
-        },
-        {
-            name: "Nabilla Thabita Wilma",
-            age: 19,
-            city: "Pasuruan",
-        },
-        {
-            name: "Ihda Firasatul Ilma",
-            age: 20,
-            city: "Gondanglegi",
-        },
-    ];
+export default function App() {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const router = useRouter();
 
-    const renderItem = ({ item }) => {
-        return (
-            <View style={styles.card}>
-                <Text style={styles.name}>{item.name}</Text>
-                <Text style={styles.age}>{item.age} tahun</Text>
-                <Text style={styles.city}>{item.city}</Text>
-            </View>
-        );
+    const handlePress = () => {
+        if (username && password) {
+            router.push("/page1");
+        } else {
+            alert("Username dan password wajib diisi!");
+        }
     };
 
     return (
         <View style={styles.container}>
-            <ScrollView contentContainerStyle={styles.scrollContent}>
-                <Image
-                    source={{
-                        uri: "https://img.freepik.com/premium-vector/queen-girl_1177067-299.jpg",
-                    }}
-                    style={styles.image}
-                />
-                <FlatList
-                    data={data}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.name}
-                />
-            </ScrollView>
+            <TextInput 
+                style={styles.input} 
+                placeholder="Enter your username"
+                value={username}
+                onChangeText={text => setUsername(text)}
+            />
+            <TextInput 
+                style={styles.input} 
+                placeholder="Enter your password"
+                value={password}
+                onChangeText={text => setPassword(text)}
+                secureTextEntry={true}
+            />
+            <TouchableOpacity onPress={handlePress} style={styles.button}>
+                <Text style={styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -52,50 +41,26 @@ export default function Home() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#ffe6f0", 
-    },
-    scrollContent: {
+        backgroundColor: "#fff",
         alignItems: "center",
-        paddingVertical: 30,
+        justifyContent: "center",
     },
-    image: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        marginBottom: 20,
-        borderWidth: 3,
-        borderColor: "#ff66b2",
-    },
-    card: {
-        backgroundColor: "#ffcce6", 
-        borderWidth: 2,
+    input: {
+        borderWidth: 1,
         borderColor: "#ff99cc",
-        borderRadius: 15,
-        padding: 20,
-        marginVertical: 10,
-        width: 300,
+        padding: 8,
+        margin: 10,
+        width: 200,
+    },
+    button: {
+        backgroundColor: "#ff66b2",
+        padding: 9,
+        margin: 10,
+        width: 200,
         alignItems: "center",
-        shadowColor: "#ff66b2",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.5,
-        shadowRadius: 4,
-        elevation: 5,
     },
-    name: {
-        fontSize: 22,
+    buttonText: {
+        color: "#fff",
         fontWeight: "bold",
-        color: "#cc0066",
-    },
-    age: {
-        fontSize: 18,
-        fontWeight: "600",
-        color: "#e60073",
-        marginTop: 5,
-    },
-    city: {
-        fontSize: 16,
-        fontStyle: "italic",
-        color: "#b30059",
-        marginTop: 5,
-    },
+    }
 });
