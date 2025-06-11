@@ -1,17 +1,18 @@
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
 
-export default function Login() {
+export default function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirm, setConfirm] = useState('');
   const router = useRouter();
 
-  const handleLogin = () => {
-    if (username && password) {
-      router.push('/(tabs)/Home');
+  const handleRegister = () => {
+    if (username && password && confirm && password === confirm) {
+      router.push('/');
     } else {
-      alert('Username dan password wajib diisi!');
+      alert('Pastikan semua kolom diisi dan password cocok');
     }
   };
 
@@ -30,16 +31,16 @@ export default function Login() {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="confirm password"
+        value={confirm}
+        onChangeText={setConfirm}
+        secureTextEntry
+      />
+      <TouchableOpacity style={styles.button} onPress={handleRegister}>
+        <Text style={styles.buttonText}>Register</Text>
       </TouchableOpacity>
-
-      <Text style={styles.footerText}>
-        Belum punya akun?{' '}
-        <Text style={styles.link} onPress={() => router.push('/register')}>
-          daftar
-        </Text>
-      </Text>
     </View>
   );
 }
@@ -71,19 +72,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 12,
+    marginTop: 20,
   },
   buttonText: {
     color: '#fff',
     fontWeight: '600',
     fontSize: 16,
-  },
-  footerText: {
-    fontSize: 14,
-    color: '#333',
-  },
-  link: {
-    color: PINK,
-    fontWeight: '600',
   },
 });

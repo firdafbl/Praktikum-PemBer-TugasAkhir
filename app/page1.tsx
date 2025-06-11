@@ -1,102 +1,22 @@
-import { useRouter } from "expo-router";
-import { Image, ScrollView, View, StyleSheet, Text, Button } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import { ScrollView, View, Text, Image, StyleSheet } from 'react-native';
 
-export default function Home() {
-    const data = [
-        {
-            name: "Firda Febiola",
-            age: 21,
-            city: "Ngajum",
-        },
-        {
-            name: "Nabilla Thabita Wilma",
-            age: 19,
-            city: "Pasuruan",
-        },
-        {
-            name: "Ihda Firasatul Ilma",
-            age: 20,
-            city: "Gondanglegi",
-        },
-    ];
+export default function DetailBarbie() {
+  return (
+    <ScrollView style={styles.container}>
+      <Image source={require('@/assets/barbie.jpg')} style={styles.image} />
+      <Text style={styles.title}>Barbie</Text>
+      <Text style={styles.desc}>
+      <u>Barbie</u>, boneka fashion ikonik yang telah menjadi simbol mainan sejak pertama kali diperkenalkan pada tahun 1959, memiliki sejarah yang panjang dan sukses dalam dunia industri mainan. Namun, kesuksesan Barbie tidak hanya karena kepopulerannya sebagai mainan, tetapi juga karena strategi marketing brand mereka yang luar biasa.
 
-    const renderItem = ({ item }) => {
-        return (
-            <View style={styles.card}>
-                <Text style={styles.name}>{item.name}</Text>
-                <Text style={styles.age}>{item.age} tahun</Text>
-                <Text style={styles.city}>{item.city}</Text>
-            </View>
-        );
-    };
-    const router = useRouter();
-    return (
-        <View style={styles.container}>
-            <ScrollView contentContainerStyle={styles.scrollContent}>
-                <Image
-                    source={{
-                        uri: "https://img.freepik.com/premium-vector/queen-girl_1177067-299.jpg",
-                    }}
-                    style={styles.image}
-                />
-                <FlatList
-                    data={data}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.name}
-                />
-            </ScrollView>
-        </View>
-    );
+Barbie pertama kali diperkenalkan oleh perusahaan mainan Amerika, Mattel, pada tahun 1959. Disebut dengan nama lengkap “Barbie Millicent Roberts”, boneka ini dirancang oleh Ruth Handler, salah satu pendiri Mattel, yang terinspirasi dari boneka Jerman bernama Bild Lilli. Barbie menjadi inovasi terobosan dalam mainan, karena pada saat itu, sebagian besar boneka yang ada berbentuk bayi atau anak-anak kecil. Barbie, dengan postur dan pakaian yang mirip manusia dewasa, memberikan pengalaman bermain yang berbeda dan menarik.
+      </Text>
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#ffe6f0", 
-    },
-    scrollContent: {
-        alignItems: "center",
-        paddingVertical: 30,
-    },
-    image: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        marginBottom: 20,
-        borderWidth: 3,
-        borderColor: "#ff66b2",
-    },
-    card: {
-        backgroundColor: "#ffcce6", 
-        borderWidth: 2,
-        borderColor: "#ff99cc",
-        borderRadius: 15,
-        padding: 20,
-        marginVertical: 10,
-        width: 300,
-        alignItems: "center",
-        shadowColor: "#ff66b2",
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.5,
-        shadowRadius: 4,
-        elevation: 5,
-    },
-    name: {
-        fontSize: 22,
-        fontWeight: "bold",
-        color: "#cc0066",
-    },
-    age: {
-        fontSize: 18,
-        fontWeight: "600",
-        color: "#e60073",
-        marginTop: 5,
-    },
-    city: {
-        fontSize: 16,
-        fontStyle: "italic",
-        color: "#b30059",
-        marginTop: 5,
-    },
+  container: { flex: 1, backgroundColor: '#fff', padding: 20 },
+  image: { width: '100%', height: 200, resizeMode: 'contain', marginBottom: 20 },
+  title: { fontSize: 24, fontWeight: '700', marginBottom: 12, textAlign: 'center' },
+  desc: { fontSize: 16, lineHeight: 24, color: '#333' },
 });
