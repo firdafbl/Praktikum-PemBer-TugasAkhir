@@ -1,15 +1,27 @@
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const handleLogin = () => {
+  useEffect(() => {
+    const checkLogin = async () => {
+      const loggedIn = await AsyncStorage.getItem('loggedIn');
+      if (loggedIn === 'true') {
+        router.replace('/(tabs)/Home');
+      }
+    };
+    checkLogin();
+  }, []);
+
+  const handleLogin = async () => {
     if (username && password) {
-      router.push('/(tabs)/Home');
+      await AsyncStorage.setItem('loggedIn', 'true');
+      router.replace('/(tabs)/Home');
     } else {
       alert('Username dan password wajib diisi!');
     }
@@ -37,7 +49,7 @@ export default function Login() {
       <Text style={styles.footerText}>
         Belum punya akun?{' '}
         <Text style={styles.link} onPress={() => router.push('/register')}>
-          daftar
+          Daftar
         </Text>
       </Text>
     </View>

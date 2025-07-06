@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "praktikum_A",
-    "slug": "praktikum_A",
+    "name": "Aplikasi Pengelolaan Koleksi Barbie",
+    "slug": "Koleksi-Barbie",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",

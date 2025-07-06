@@ -1,10 +1,19 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRouter } from 'expo-router';
 
 export default function About() {
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem('loggedIn');
+    router.replace('/');
+  };
+
   return (
     <View style={styles.container}>
-      <Image source={require('@/assets/barbie.jpg')} style={styles.avatar} />
+      <Image source={require('@/assets/profile.png')} style={styles.avatar} />
       <Text style={styles.username}>Barbie</Text>
 
       <View style={styles.cardContainer}>
@@ -29,24 +38,24 @@ export default function About() {
           </View>
           <Ionicons name="chevron-forward" size={20} color="#999" />
         </TouchableOpacity>
-``
+
         <TouchableOpacity style={styles.card}>
           <View style={styles.iconText}>
             <Ionicons name="shield-checkmark-outline" size={20} color="#ec4899" />
             <View>
               <Text style={styles.cardTitle}>Two-Factor Authentication</Text>
-              <Text style={styles.cardSubtitle}>Further secure your account for safety</Text>
+              <Text style={styles.cardSubtitle}>Further secure your account</Text>
             </View>
           </View>
           <Ionicons name="chevron-forward" size={20} color="#999" />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.card}>
+        <TouchableOpacity style={styles.card} onPress={handleLogout}>
           <View style={styles.iconText}>
             <Ionicons name="exit-outline" size={20} color="#ec4899" />
             <View>
               <Text style={styles.cardTitle}>Log out</Text>
-              <Text style={styles.cardSubtitle}>Further secure your account for safety</Text>
+              <Text style={styles.cardSubtitle}>Exit the Application</Text>
             </View>
           </View>
           <Ionicons name="chevron-forward" size={20} color="#999" />
